@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouba.cz - Theraváda jednoduše</title>
+    <meta name="description" content="Průvodce theravádovým buddhismem pro úplné začátečníky. Jednoduše, srozumitelně, bez magie.">
+    <style>
+        /* --- ZÁKLADNÍ NASTAVENÍ A PROMĚNNÉ --- */
+        :root {
+            --primary-color: #5D4037; /* Zemitá hnědá */
+            --secondary-color: #D7CCC8; /* Světle hnědá */
+            --accent-color: #E65100; /* Tlumená oranžová (roucha) */
+            --bg-color: #F9F7F2; /* Krémová bílá (papír) */
+            --text-color: #333333;
+            --white: #ffffff;
+            --spacing: 2rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; border-radius: 8px; }
+
+        /* --- HLAVIČKA A NAVIGACE --- */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        .logo span { color: #FFCC80; }
+
+        nav ul {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover { color: #FFCC80; }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* --- HERO SEKCE (ÚVOD) --- */
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(rgba(93, 64, 55, 0.8), rgba(93, 64, 55, 0.8)), url('https://images.unsplash.com/photo-1526716173434-a1b560f2065d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-motto {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #FFCC80;
+            max-width: 800px;
+            margin: 0 auto 1.5rem auto;
+            font-weight: 500;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover { background-color: #bf360c; }
+
+        /* --- SEKCE BOUBA --- */
+        .bouba-section {
+            padding: 4rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .bouba-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .bouba-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .bouba-card:hover { transform: translateY(-5px); }
+
+        .bouba-letter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- NOVÁ SEKCE: PILÍŘE DHAMMY (VIDEA) --- */
+        .pillars-section {
+            padding: 4rem 1rem;
+            background-color: #ECEFF1; /* Jemně šedá pro odlišení */
+            text-align: center;
+            border-top: 1px solid #cfd8dc;
+            border-bottom: 1px solid #cfd8dc;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 2rem auto 0 auto;
+        }
+
+        .video-card {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .video-card:hover { transform: translateY(-5px); }
+
+        .video-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        /* Upraveno pro YouTube iframe místo video tagu */
+        .video-card iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 4px;
+            border: none;
+            background-color: #000;
+        }
+
+        /* --- SEKCE CITÁTY --- */
+        .quote-section {
+            background-color: var(--white);
+            padding: 3rem 1rem;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .quote-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .quote-slider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .quote-content {
+            flex: 1;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .quote-text {
+            font-size: 1.3rem;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .quote-source {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 0.5rem;
+        }
+
+        .quote-arrow {
+            background: none;
+            border: 2px solid var(--secondary-color);
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .quote-arrow:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .quote-counter {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #999;
+            letter-spacing: 1px;
+        }
+
+        /* --- KAPITOLY OBSAHU --- */
+        .chapter {
+            padding: 4rem 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .chapter:nth-child(even) { background-color: #fff; }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .chapter-number {
+            color: var(--accent-color);
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .chapter h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .topic {
+            background: rgba(255,255,255,0.7);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .topic h3 { margin-bottom: 0.5rem; color: #444; }
+
+        /* --- STYL PRO SEKCI O PROJEKTU --- */
+        .about-section {
+            padding: 4rem 1rem;
+            background-color: #f9f9f9;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .about-text {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+            color: #444;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- STYL PRO SEKCI ODKAZY --- */
+        .links-section {
+            padding: 4rem 1rem;
+            background-color: #f4eee8; /* Jemný béžový podklad */
+            border-top: 1px solid #d7ccc8;
+            text-align: center;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 2rem auto 0 auto;
+        }
+
+        .link-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border-bottom: 4px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .link-card:hover { transform: translateY(-5px); }
+
+        .link-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .link-url {
+            color: #666;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+
+        /* --- FAQ SEKCE --- */
+        .faq-section {
+            padding: 4rem 1rem;
+            background-color: var(--secondary-color);
+            color: #222;
+        }
+
+        .accordion {
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+
+        .accordion-item {
+            background-color: var(--white);
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover { background-color: #f1f1f1; }
+        
+        .accordion-header::after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+
+        .accordion-header.active::after { content: '-'; }
+
+        .accordion-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 1.5rem;
+            background-color: #fafafa;
+        }
+        
+        .accordion-body p {
+            padding: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        /* --- STYL PRO SLOVNÍČEK --- */
+        .glossary-section {
+            padding: 4rem 1rem;
+            background-color: var(--white);
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .term-card {
+            background-color: #fcfcfc;
+            border: 1px solid #eee;
+            border-left: 4px solid var(--accent-color);
+            padding: 1rem;
+            border-radius: 4px;
+            transition: transform 0.2s;
+        }
+
+        .term-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .term-word {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .term-def {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        /* --- STYL PRO KONTAKTNÍ FORMULÁŘ --- */
+        .contact-section {
+            padding: 4rem 1rem;
+            background-color: var(--white);
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f9f9f9;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .gdpr-note {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 1rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        /* --- STYL PRO COOKIE LIŠTU --- */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            z-index: 9999;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .cookie-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .cookie-btn:hover {
+            background-color: #bf360c;
+        }
+
+        @media (max-width: 600px) {
+            .cookie-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 0.8rem;
+            }
+        }
+
+        /* --- PATIČKA --- */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .footer-links { margin: 1rem 0; }
+        .footer-links a { margin: 0 0.5rem; text-decoration: underline; }
+
+        /* --- RESPONZIVITA --- */
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; align-items: flex-start; }
+            nav ul { 
+                display: none; 
+                flex-direction: column; 
+                width: 100%; 
+                margin-top: 1rem;
+            }
+            nav ul.active { display: flex; }
+            .menu-toggle { display: block; position: absolute; right: 1rem; top: 1rem; }
+            .hero h1 { font-size: 2rem; }
+            .hero-motto { font-size: 1.1rem; }
+            .quote-text { font-size: 1.1rem; }
+            .quote-arrow { width: 35px; height: 35px; font-size: 1.2rem; min-width: 35px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">Bouba<span>.cz</span></div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#hero">Domů</a></li>
+                    <li><a href="#pilire">Videa</a></li>
+                    <li><a href="#quotes">Inspirace</a></li>
+                    <li><a href="#chap1">Kdo a proč</a></li>
+                    <li><a href="#chap2">Teorie</a></li>
+                    <li><a href="#chap3">Praxe</a></li>
+                    <li><a href="#chap4">Meditace</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#odkazy">Odkazy</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <h1>Buddhismus bez kouzel</h1>
+        <p class="hero-motto">"Vy sami se musíte snažit; Buddhové pouze ukazují cestu. Ti, kdo meditují a kráčejí po této cestě, jsou osvobozeni z pout Máry."</p>
+        
+        <p>Průvodce theravádou pro úplné začátečníky. Žádná mystika, jen návod na klidnější mysl a šťastnější život.</p>
+        <a href="#chap1" class="btn">Chci začít číst</a>
+    </section>
+
+    <section class="bouba-section">
+        <h2>O čem je tento web?</h2>
+        <p>Název BOUBA není náhodný. Je to mapa tvé cesty:</p>
+        <div class="bouba-grid">
+            <div class="bouba-card"><span class="bouba-letter">B</span><br><strong>Buddha</strong><br>Náš učitel, ne bůh.</div>
+            <div class="bouba-card"><span class="bouba-letter">O</span><br><strong>Osvícení</strong><br>Cíl: Zdravá mysl.</div>
+            <div class="bouba-card"><span class="bouba-letter">U</span><br><strong>Ušlechtilost</strong><br>Cesta etiky.</div>
+            <div class="bouba-card"><span class="bouba-letter">B</span><br><strong>Bdělost</strong><br>Nástroj meditace.</div>
+            <div class="bouba-card"><span class="bouba-letter">A</span><br><strong>Arhant</strong><br>Inspirace.</div>
+        </div>
+    </section>
+
+    <section id="pilire" class="pillars-section">
+        <div class="container">
+            <h2>Pilíře Dhammy</h2>
+            <p>Čtyři základní kameny, na kterých stojí celé učení. Pochopte toto a pochopíte vše.</p>
+            
+            <div class="pillars-grid">
+                
+                <div class="video-card">
+                    <h3>1. Buddha: Příběh člověka</h3>
+                    <iframe 
+                        src="https://www.youtube-nocookie.com/embed/JgwMo7c4Y48?rel=0" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="video-card">
+                    <h3>2. Čtyři vznešené pravdy</h3>
+                    <iframe 
+                        src="https://www.youtube-nocookie.com/embed/ztjSNzg3f5I?rel=0" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="video-card">
+                    <h3>3. Tři známky existence</h3>
+                    <iframe 
+                        src="https://www.youtube-nocookie.com/embed/M44Y5ADhK4E?rel=0" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="video-card">
+                    <h3>4. Ušlechtilá osmidílná stezka</h3>
+                    <iframe 
+                        src="https://www.youtube-nocookie.com/embed/SSq-E23zDi4?rel=0" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="quotes" class="quote-section">
+        <div class="quote-container">
+            <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; color: #777;">Inspirace z Dhammapady</h2>
+            
+            <div class="quote-slider">
+                <button class="quote-arrow" onclick="prevQuote()">&#10094;</button>
+                
+                <div class="quote-content">
+                    <div class="quote-text" id="quote-text">
+                        "Kohokoli přemůže tato ubohá a lepkavá touha, jeho zármutek roste jako tráva po dešti."
+                    </div>
+                    <span class="quote-source">- Dhammapada -</span>
+                </div>
+
+                <button class="quote-arrow" onclick="nextQuote()">&#10095;</button>
+            </div>
+            
+            <div class="quote-counter" id="quote-counter">1 / 13</div>
+        </div>
+    </section>
+
+    <div id="content">
+        
+        <section id="chap1" class="chapter">
+            <div class="container">
+                <span class="chapter-number">Kapitola 1</span>
+                <h2>Kdo, kdy a proč (Základy)</h2>
+                <p class="intro-text">Než začneme meditovat, musíme vědět, do čeho jdeme. Nebojte se, nejde o sektu, ale o systém tréninku mysli.</p>
+                <div class="topic-grid">
+                    <div class="topic">
+                        <h3>Život Buddhy</h3>
+                        <p>Siddhattha Gautama nebyl bůh, ale člověk. Narodil se jako princ, který měl vše, ale nebyl šťastný, když uviděl stáří, nemoc a smrt. Odešel do bezdomoví, zkoušel askezi, ale nakonec našel pravdu ve vlastní mysli a stal se "Probuzeným".</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Střední cesta</h3>
+                        <p>Buddha přirovnal praxi ke struně loutny. Když je moc volná, nehraje (lenost). Když je moc napnutá, praskne (sebetrýznění). Správná cesta je uprostřed – bdělá a vyrovnaná.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Tři klenoty</h3>
+                        <p>Bezpečné útočiště v nejistém světě: 1. <strong>Buddha</strong> (jako náš učitel a vzor), 2. <strong>Dhamma</strong> (jeho učení a pravda o realitě), 3. <strong>Sangha</strong> (společenství ušlechtilých mnichů a praktikujících).</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Odmítání magie</h3>
+                        <p>Theraváda je pragmatická. Odmítá věštění, horoskopy a zázraky jako řešení problémů. Spoléháme se pouze na zákon příčiny a následku (Karmu) a vlastní úsilí.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chap2" class="chapter">
+            <div class="container">
+                <span class="chapter-number">Kapitola 2</span>
+                <h2>Jak funguje svět (Teorie)</h2>
+                <div class="topic-grid">
+                    <div class="topic">
+                        <h3>Čtyři vznešené pravdy</h3>
+                        <p>Jádro učení: 1. Život obsahuje neuspokojivost (Dukkha). 2. Příčinou je naše žízeň/lpění na tom, aby věci byly jinak. 3. Existuje konec tohoto trápení (Nibbána). 4. Cestou ven je Osmidílná stezka.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Tři známky existence</h3>
+                        <p>Všechno ve vesmíru má tři vlastnosti: 1. <strong>Anicca</strong> (vše se mění, nic netrvá), 2. <strong>Dukkha</strong> (nic nemůže trvale uspokojit), 3. <strong>Anatta</strong> (nic nemá trvalou podstatu, nic není "já").</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Karma (Čin)</h3>
+                        <p>Nejde o osud. Karma znamená "čin". Každý úmyslný čin (myšlenkou, slovem nebo tělem) zanechává stopu. Dobrý úmysl přináší štěstí, zlý úmysl utrpení. Budoucnost tvoříme teď.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Samsára a Znovuzrození</h3>
+                        <p>Koloběh zrození a smrti. Nejde o stěhování "duše", ale o přenos energie a vědomí podmiňovaný našimi činy – podobně jako když plamen jedné svíčky zapálí druhou.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chap3" class="chapter">
+            <div class="container">
+                <span class="chapter-number">Kapitola 3</span>
+                <h2>Tréninkový plán (Praxe)</h2>
+                <div class="topic-grid">
+                    <div class="topic">
+                        <h3>Ušlechtilá osmidílná stezka</h3>
+                        <p>Návod k použití života. Dělí se na tři skupiny: <strong>Moudrost</strong> (správný názor, myšlení), <strong>Etika</strong> (správná řeč, jednání, životospráva) a <strong>Soustředění</strong> (správné úsilí, všímavost, soustředění).</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Pět předsevzetí (Síla)</h3>
+                        <p>Morální základ pro laiky: 1. Nezabíjet živé tvory. 2. Nekrást (nebrat, co nebylo dáno). 3. Nezneužívat sexualitu. 4. Nelhat. 5. Neužívat omamné látky, které zatemňují mysl.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Dana (Štědrost)</h3>
+                        <p>První krok praxe. Učíme se nelpět na majetku. Dávání otevírá srdce, snižuje sobectví a podporuje mnišskou obec, čímž udržujeme učení naživu.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Tři kořeny utrpení</h3>
+                        <p>Co nám otravuje mysl? 1. <strong>Chamtivost</strong> (touha mít), 2. <strong>Nenávist</strong> (odpor k tomu, co je), 3. <strong>Zaslepenost</strong> (nevědomost o tom, jak věci fungují). Praxe je lékem na tyto tři jedy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chap4" class="chapter">
+            <div class="container">
+                <span class="chapter-number">Kapitola 4</span>
+                <h2>Práce s myslí (Meditace)</h2>
+                <div class="topic-grid">
+                    <div class="topic">
+                        <h3>Všímavost (Sati)</h3>
+                        <p>Klíčová dovednost. Znamená to být plně přítomen "tady a teď". Vědět, že dýchám, vědět, že jdu, vědět, že se zlobím – bez posuzování, jen čisté pozorování.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Samatha a Vipassana</h3>
+                        <p><strong>Samatha</strong> je meditace klidu (soustředění na dech), která mysl uklidní. <strong>Vipassana</strong> je meditace vhledu, která zkoumá realitu a vede k moudrosti.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Metta (Laskavost)</h3>
+                        <p>Meditace přejícné lásky. Pěstujeme upřímné přání "Ať jsem já i všichni ostatní šťastní". Je to nejlepší ochrana proti hněvu a nenávisti.</p>
+                    </div>
+                     <div class="topic">
+                        <h3>Čtyři druhy lpění</h3>
+                        <p>Trápíme se, protože se držíme: 1. Smyslových požitků, 2. Názorů a přesvědčení, 3. Rituálů a zvyků (bez pochopení), 4. Představy o vlastním "Já".</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chap5" class="chapter">
+            <div class="container">
+                <span class="chapter-number">Kapitola 5</span>
+                <h2>Hluboká voda (Filozofie)</h2>
+                <div class="topic-grid">
+                    <div class="topic">
+                        <h3>Závislé vznikání</h3>
+                        <p>Hluboký popis reality (Patičča-samuppáda). Řetězec 12 článků, který ukazuje, jak z nevědomosti vznikají mentální formace, vědomí... až po stárnutí a smrt.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Nirvána (Nibbána)</h3>
+                        <p>Doslova "vyhasnutí" (jako plamene svíčky). Je to vyhasnutí chamtivosti, nenávisti a klamu. Stav dokonalého míru, bezpečí a konec znovuzrozování.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Arhant</h3>
+                        <p>Ideál theravády. Člověk, který dokončil cestu, plně odstranil kořeny zla ze své mysli a dosáhl Nibbány. Už se znovu nenarodí.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Anantarika</h3>
+                        <p>Pět činů s nejtěžší karmou (okamžitý pád do pekelných stavů): Zabití matky, zabití otce, zabití arahanta, zranění Buddhy a rozvrácení Sanghy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chap6" class="chapter">
+            <div class="container">
+                <span class="chapter-number">Kapitola 6</span>
+                <h2>Odkud to máme (Historie)</h2>
+                <div class="topic-grid">
+                    <div class="topic">
+                        <h3>Historie Theravády</h3>
+                        <p>Škola "Starších". Vznikla snahou zachovat učení přesně tak, jak ho Buddha předal, bez přidávání pozdějších rituálů. Rozšířila se ze Srí Lanky do JV Asie.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Tipitaka (Pálíjský kánon)</h3>
+                        <p>Posvátné texty zapsané v jazyce páli. Tvoří je tři koše: <strong>Vinaya</strong> (pravidla pro mnichy), <strong>Sutta</strong> (rozpravy Buddhy) a <strong>Abhidhamma</strong> (vyšší filozofie).</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Šest koncilů</h3>
+                        <p>Historická shromáždění mnichů, kde se recitovaly texty pro kontrolu správnosti. První byl hned po Buddhově smrti, poslední (šestý) v roce 1954 v Barmě.</p>
+                    </div>
+                    <div class="topic">
+                        <h3>Maitreya</h3>
+                        <p>Budoucí Buddha. Podle tradice se objeví až v daleké budoucnosti, kdy bude současná Dhamma zcela zapomenuta, aby znovu roztočil kolo učení.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <section id="o-projektu" class="about-section">
+        <div class="container">
+            <h2>O projektu Bouba.cz</h2>
+            
+            <div class="about-text">
+                <p>Jsem obyčejný člověk, který si prošel obdobím duchovního hledání, až jsem nakonec zakotvil u theravády. Tento web vznikl pro zábavu, ale i jako služba pro širokou laickou veřejnost. V České republice jsou historicky rozšířenější jiné směry, a já věřím, že ten původní, střízlivý směr si zaslouží více pozornosti.</p>
+
+                <p>Theravádu jsem si vybral především pro její racionální základ a až překvapivé shody s moderní vědou. Je to směr nejbližší původnímu učení Buddhy (založený na textu Tipitaka) a je mnohem srozumitelnější než pozdější, složité systémy jiných škol. Mám přirozenou skepsi k New Age a esoterice, proto mě oslovil systém, který funguje spíše jako lékařská diagnostika (Čtyři vznešené pravdy) než jako náboženství plné kouzel.</p>
+
+                <p>Často se setkávám s omylem, že buddhismus vidí život jen jako utrpení bez radosti. To je nepochopení – cílem je naopak trvalé štěstí. Buddha nevyžadoval slepou víru, ale vyzýval k vyzkoušení. Fascinuje mě, jak už před 2500 lety věděl o zbytečnosti toho, co dnes nazýváme esoterika, nebo jak jeho koncept <em>anatta</em> (ne-já) dnes potvrzuje neurověda zjištěním, že v mozku neexistuje žádné jediné centrum „já“.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="slovnicek" class="glossary-section">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary-color);">Slovníček pojmů</h2>
+            <p style="text-align: center; margin-bottom: 1rem; color: #666;">Malý tahák z jazyka páli do češtiny.</p>
+            
+            <div class="glossary-grid">
+                <div class="term-card"><span class="term-word">Anatta</span><span class="term-def">Ne-já. Absence trvalé duše nebo podstaty v jevech.</span></div>
+                <div class="term-card"><span class="term-word">Anicca</span><span class="term-def">Pomíjivost. Fakt, že všechno vzniká a zaniká.</span></div>
+                <div class="term-card"><span class="term-word">Arhant</span><span class="term-def">„Ten, kdo je hoden“. Člověk, který dosáhl plného osvícení.</span></div>
+                <div class="term-card"><span class="term-word">Bhikkhu</span><span class="term-def">Mnich. Doslova „ten, kdo žije z darovaného jídla“.</span></div>
+                <div class="term-card"><span class="term-word">Buddha</span><span class="term-def">„Probuzený“. Titul pro toho, kdo sám objevil cestu k osvobození.</span></div>
+                <div class="term-card"><span class="term-word">Dána</span><span class="term-def">Štědrost, dávání. Akt darování, který oslabuje chamtivost.</span></div>
+                <div class="term-card"><span class="term-word">Dhamma</span><span class="term-def">Buddhovo učení, ale také Pravda o tom, jak funguje realita.</span></div>
+                <div class="term-card"><span class="term-word">Dukkha</span><span class="term-def">Neuspokojivost, strast, utrpení. První vznešená pravda.</span></div>
+                <div class="term-card"><span class="term-word">Kamma (Karma)</span><span class="term-def">„Čin“. Zákon příčiny a následku; úmyslné jednání.</span></div>
+                <div class="term-card"><span class="term-word">Mettá</span><span class="term-def">Laskavost. Přejícná láska ke všem bytostem bez výjimky.</span></div>
+                <div class="term-card"><span class="term-word">Nibbána</span><span class="term-def">„Vyhasnutí“. Konečné osvobození od utrpení.</span></div>
+                <div class="term-card"><span class="term-word">Páli</span><span class="term-def">Starodávný jazyk, ve kterém jsou zapsány původní texty.</span></div>
+                <div class="term-card"><span class="term-word">Paňňá</span><span class="term-def">Moudrost. Schopnost vidět věci takové, jaké skutečně jsou.</span></div>
+                <div class="term-card"><span class="term-word">Samádhi</span><span class="term-def">Soustředění. Schopnost mysli zůstat klidně u jednoho objektu.</span></div>
+                <div class="term-card"><span class="term-word">Samsára</span><span class="term-def">Nekonečný koloběh zrození, smrti a znovuzrození.</span></div>
+                <div class="term-card"><span class="term-word">Sangha</span><span class="term-def">Společenství mnichů, mnišek a praktikujících následovníků.</span></div>
+                <div class="term-card"><span class="term-word">Sati</span><span class="term-def">Všímavost. Schopnost plně si uvědomovat přítomný okamžik.</span></div>
+                <div class="term-card"><span class="term-word">Síla</span><span class="term-def">Etika, morálka. Základní pravidla chování.</span></div>
+                <div class="term-card"><span class="term-word">Sutta</span><span class="term-def">Rozprava nebo kázání, které pronesl Buddha nebo jeho žáci.</span></div>
+                <div class="term-card"><span class="term-word">Taňhá</span><span class="term-def">Žízeň, dychtění, touha. Hlavní příčina utrpení.</span></div>
+                <div class="term-card"><span class="term-word">Theraváda</span><span class="term-def">„Učení starších“. Nejstarší dochovaná škola buddhismu.</span></div>
+                <div class="term-card"><span class="term-word">Tipitaka</span><span class="term-def">„Tři koše“. Název pro buddhistický kánon.</span></div>
+                <div class="term-card"><span class="term-word">Vipassaná</span><span class="term-def">Vhled. Meditační technika vedoucí k pochopení reality.</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2 style="text-align: center;">Časté otázky (FAQ)</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Vše, na co jste se báli zeptat (30+ otázek).</p>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <div class="accordion-header">Je buddhismus náboženství, nebo filozofie?</div>
+                    <div class="accordion-body"><p>Je to spíše tréninkový systém pro mysl a způsob života (Dhammavinaya). Neuctíváme boha stvořitele, ale pracujeme na vlastním zdokonalení.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Kdo byl Buddha? Byl to bůh?</div>
+                    <div class="accordion-body"><p>Nebyl to bůh. Byl to člověk jménem Siddhattha Gautama, který vlastními silami našel lék na lidské utrpení. Proto Buddha = Probuzený.</p></div>
+                </div>
+                 <div class="accordion-item">
+                    <div class="accordion-header">Věří buddhisté v Boha stvořitele?</div>
+                    <div class="accordion-body"><p>Ne. Buddha se otázkami stvoření světa nezabýval, protože nepomáhají vyřešit aktuální problém – naše trápení teď a tady.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Co znamená slovo Theraváda?</div>
+                    <div class="accordion-body"><p>Znamená "Učení starších". Je to nejstarší škola buddhismu, která se snaží zachovat původní slova Buddhy bez pozdějších úprav.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Jaký je rozdíl mezi Theravádou a Dalajlámou?</div>
+                    <div class="accordion-body"><p>Dalajláma patří k tibetskému buddhismu. Theraváda je konzervativnější, jednodušší, méně rituální a vychází jen z nejstarších textů (Pálíjského kánonu).</p></div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">Musím být vegetarián?</div>
+                    <div class="accordion-body"><p>Není to striktní podmínka, sám Buddha jedl maso, pokud bylo darované. Mnoho buddhistů je ale vegetariány ze soucitu. První pravidlo je "nezabíjet".</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Mohu pít alkohol?</div>
+                    <div class="accordion-body"><p>Páté předsevzetí radí vyhnout se látkám, které způsobují nedbalost. Alkohol zatemňuje mysl, což jde proti snaze o bdělost.</p></div>
+                </div>
+                 <div class="accordion-item">
+                    <div class="accordion-header">Co když poruším pravidla? Je to hřích?</div>
+                    <div class="accordion-body"><p>Buddhismus nezná "hřích" a trestajícího boha, jen chybu a následek (karmu). Pokud chybuješ, přiznej si to, odpusť si a zkus to příště lépe.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Je theraváda pesimistická, když mluví o utrpení?</div>
+                    <div class="accordion-body"><p>Ne, je realistická. Jako lékař, který musí nejdřív přiznat nemoc (utrpení), aby ji mohl vyléčit. Cílem je absolutní zdraví (Nibbána).</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Proč mniši žebrají o jídlo?</div>
+                    <div class="accordion-body"><p>Mniši nesmí vařit ani mít peníze na jídlo. Jsou závislí na laicích. To je učí pokoře a laiky to učí štědrosti (Dana). Je to vzájemná pomoc.</p></div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">Jak začít meditovat?</div>
+                    <div class="accordion-body"><p>Najděte si klidné místo, sedněte si s rovnými zády a pozorujte svůj dech u nosu. Když mysl uteče k myšlenkám, vraťte ji laskavě zpět k dechu.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Musím meditovat v lotosovém sedu?</div>
+                    <div class="accordion-body"><p>Ne. Můžete sedět na židli, klečet nebo meditovat v chůzi. Důležitá je rovná páteř a bdělá mysl, ne akrobacie.</p></div>
+                </div>
+                 <div class="accordion-item">
+                    <div class="accordion-header">Co je to Sati (Všímavost)?</div>
+                    <div class="accordion-body"><p>Schopnost pamatovat si přítomný okamžik. Vědět, co dělám, zatímco to dělám. Je to opak "autopilota".</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Jaký je cíl meditace? Vypnout mozek?</div>
+                    <div class="accordion-body"><p>Ne. Cílem je poznat mysl. Uvidět, jak vznikají myšlenky a emoce, a přestat na ně slepě reagovat. To přináší klid a moudrost.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Mohu praktikovat, i když mám rodinu a práci?</div>
+                    <div class="accordion-body"><p>Ano! Většina Buddhových žáků byli laici. Dodržujte pět předsevzetí, buďte štědří a snažte se o všímavost v běžném dni.</p></div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">Co je to Karma?</div>
+                    <div class="accordion-body"><p>Zákon příčiny a následku. Karma znamená "čin". Každý úmysl v mysli zanechá stopu. My sami jsme tvůrci svého osudu.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Je Karma osud?</div>
+                    <div class="accordion-body"><p>Ne úplně. Minulá karma ovlivňuje, kde začínáme, ale to, co uděláme teď (nová karma), máme plně ve svých rukou.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Musím věřit na znovuzrození?</div>
+                    <div class="accordion-body"><p>Ze začátku ne. Stačí vidět, jak se stavy mysli rodí a umírají během dne. Hlubší pochopení přijde s praxí.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Jak funguje znovuzrození bez duše?</div>
+                    <div class="accordion-body"><p>Jako přenos energie. Když jedna svíčka zapálí druhou, plamen přejde, ale svíčka je jiná. Stejně tak naše činy a touhy podmiňují další život.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Co jsou to "Zásluhy"?</div>
+                    <div class="accordion-body"><p>Karmicky pozitivní energie vzniklá dobrými činy (dáváním, etikou, meditací). "Čistí" mysl a přináší štěstí.</p></div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">Co je Nirvána (Nibbána)?</div>
+                    <div class="accordion-body"><p>Konečný cíl. Vyhasnutí plamene chamtivosti, nenávisti a zaslepenosti. Absolutní mír a svoboda od utrpení.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Co se stane s Arhantem po smrti?</div>
+                    <div class="accordion-body"><p>Buddha to označil za "nezodpověditelnou" otázku pro běžnou mysl. Arhant nezaniká, ani neexistuje způsobem, jakým chápeme my. Je "osvobozen".</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Co je "Ne-já" (Anatta)?</div>
+                    <div class="accordion-body"><p>Zjištění, že tělo, pocity ani myšlenky nejsou "já". Jsou to jen procesy, které vznikají a zanikají. Lpění na "já" způsobuje bolest.</p></div>
+                </div>
+                 <div class="accordion-item">
+                    <div class="accordion-header">Co je Závislé vznikání?</div>
+                    <div class="accordion-body"><p>Popis mechanismu Samsáry. Řetězec 12 podmínek (nevědomost -> formace -> vědomí...), který ukazuje, jak vzniká utrpení.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Proč odmítáte věštění?</div>
+                    <div class="accordion-body"><p>Protože to odvádí pozornost od vlastní zodpovědnosti. Hvězdy za nás problémy nevyřeší, naše změna chování ano.</p></div>
+                </div>
+
+                <div class="accordion-item">
+                    <div class="accordion-header">Co je Tipitaka?</div>
+                    <div class="accordion-body"><p>"Tři koše" textů v jazyce páli. Je to nejstarší kompletní sbírka Buddhova učení.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Kdo je Maitreya?</div>
+                    <div class="accordion-body"><p>Budoucí Buddha. Přijde až za velmi dlouhou dobu, kdy lidé úplně zapomenou na současné učení.</p></div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header">Co byly Buddhistické koncily?</div>
+                    <div class="accordion-body"><p>Setkání mnichů, kde se kontrolovala čistota učení. První byl 3 měsíce po smrti Buddhy, kde 500 arhantů zrecitovalo celé učení zpaměti.</p></div>
+                </div>
+                 <div class="accordion-item">
+                    <div class="accordion-header">Jak začít hned teď?</div>
+                    <div class="accordion-body"><p>Zastavte se. Třikrát se vědomě nadechněte. Rozhodněte se, že dnes nikomu neublížíte. To je začátek cesty.</p></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="odkazy" class="links-section">
+        <div class="container">
+            <h2>Odkazy a Zdroje</h2>
+            <p>Kde hledat původní texty a hlubší studium.</p>
+            <div class="links-grid">
+                <a href="https://www.dhammatalks.org/" target="_blank" class="link-card">
+                    <span class="link-title">Dhamma Talks</span>
+                    <span class="link-url">dhammatalks.org</span>
+                </a>
+                <a href="https://www.accesstoinsight.org/" target="_blank" class="link-card">
+                    <span class="link-title">Access to Insight</span>
+                    <span class="link-url">accesstoinsight.org</span>
+                </a>
+                <a href="https://www.theravada.cz/" target="_blank" class="link-card">
+                    <span class="link-title">Theravada.cz</span>
+                    <span class="link-url">theravada.cz</span>
+                </a>
+                <a href="https://suttacentral.net/" target="_blank" class="link-card">
+                    <span class="link-title">Sutta Central</span>
+                    <span class="link-url">suttacentral.net</span>
+                <a href="https://www.instagram.com/theravada_jednoduse" target="_blank" class="link-card">
+                    <span class="link-title">Instagram</span>
+                    <span class="link-url">@theravada_jednoduse</span>
+                </a>
+
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt" class="contact-section">
+        <div class="container">
+            <h2 style="text-align: center; color: var(--primary-color);">Napište nám</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Máte otázku k praxi nebo připomínku k webu?</p>
+            
+            <form action="https://formsubmit.co/theravada@bouba.cz" method="POST" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Jméno</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Vaše jméno" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Váš e-mail" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Zpráva</label>
+                    <textarea id="message" name="message" class="form-control" placeholder="Vaše zpráva..." required></textarea>
+                </div>
+                <input type="hidden" name="_next" value="https://bouba.cz">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <button type="submit" class="btn" style="width: 100%;">Odeslat zprávu</button>
+                
+                <p class="gdpr-note">
+                    Odesláním formuláře souhlasíte se zpracováním osobních údajů (jméno a e-mail) pouze za účelem vyřízení vaší zprávy a případné odpovědi. Vaše údaje nebudou předány třetím stranám ani využity k marketingu.
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <div id="cookie-banner" class="cookie-banner">
+        <span>Tento web používá soubory cookie k zajištění správného fungování a vylepšení uživatelského zážitku.</span>
+        <button id="accept-cookies" class="cookie-btn">Rozumím</button>
+    </div>
+
+    <footer>
+        <div class="container">
+            <h3>Bouba.cz</h3>
+            <p>Theravádový buddhismus pro moderní svět.</p>
+            <p style="font-size: 0.8rem; margin-top: 1rem;">© 2026 Bouba.cz - Všechna práva vyhrazena (ale sdílení Dharmy je vítáno).</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- DATA CITÁTŮ (Seřazeno 1-19) ---
+        const quotes = [
+            "Kohokoli přemůže tato ubohá a lepkavá touha, jeho zármutek roste jako tráva po dešti.",
+            "Člověk by se měl vzdát hněvu, zříci se pýchy a překonat všechna pouta. Utrpení nikdy nepostihne toho, kdo se nedrží mysli a těla a je od nich odpoutaný.",
+            "Vy sami se musíte snažit; Buddhové pouze ukazují cestu. Ti, kdo meditují a kráčejí po této cestě, jsou osvobozeni z pout Máry.",
+            "Povstaňte! Nebuďte nedbalí! Veďte spravedlivý život. Spravedliví žijí šťastně v tomto i příštím světě.",
+            "Někteří se rodí v děloze; zlí se rodí v pekle; zbožní jdou do nebe; bezúhonní vstupují do nirvány.",
+            "Ten, kdo činí dobro, se raduje zde i v onom životě; raduje se v obou světech. Myšlenka „Dobro jsem vykonal“ ho těší a ještě více se raduje, když odejde do říší blaženosti.",
+            "Ti, kdo v mládí nevedli svatý život nebo si nezískali bohatství, chřadnou jako staří jeřábi v rybníku bez ryb.",
+            "Blázen, který si je vědom své hlouposti, je moudrý alespoň do té míry, ale blázen, který si o sobě myslí, že je moudrý, je skutečně blázen.",
+            "Člověk není moudrý proto, že mnoho mluví. Moudrý se nazývá ten, kdo je mírumilovný, přátelský a nebojácný.",
+            "Kdo ničí život, lže, bere, co není dáno, chodí k ženě jiného muže a je závislý na opojných nápojích - takový si i na tomto světě zarývá vlastní kořeny.",
+            "Odřízni pět, opusť pět a pěstuj pět. Mnich, který překonal pět pout, se nazývá ten, kdo překročil potopu.",
+            "Lepší je žít sám; s hlupákem není společenství. Žij sám a nečiň nic zlého, buď bezstarostný jako slon v sloním lese.",
+            "Člověk, který je bez slepé víry, který zná Nestvořeného, ​​který přerušil všechna pouta, zničil všechny příčiny (karmy, dobra i zla) a zahodil všechny touhy - ten je vpravdě nejvznešenějším z lidí.",
+            "I když mnoho recituje posvátné texty, ale nejedná podle nich, je tento nedbalý člověk jako pasáček krav, který počítá jen krávy jiných – nepožívá požehnání svatého života.",
+            "Ani matka, ani otec, ani žádný jiný příbuzný nemůže člověku prokázat větší dobro než jeho vlastní dobře vedená mysl.",
+            "Může-li někdo dosáhnout většího štěstí zřeknutím se menšího štěstí, ať se moudrý člověk zřekne menšího a vezme v úvahu větší.",
+            "Člověk je skutečně ochráncem sám sebe; kdo jiný by jím mohl být? Když se plně ovládne, získává mistrovství, které je těžké dosáhnout.",
+            "Nenásledujte vulgární cestu; nežijte v nedbalosti; nezachovávejte falešné názory; nezdržujte se dlouho ve světské existenci.",
+            "Dar Dhammy předčí všechny dary; chuť Dhammy předčí všechny chutě; potěšení z Dhammy předčí všechny rozkoše. Osvobozený od touhy překonává veškeré utrpení."
+        ];
+
+        let currentQuoteIndex = 0;
+
+        // --- FUNKCE PRO PROHLÍŽEČ CITÁTŮ ---
+        function showQuote(index) {
+            const quoteText = document.getElementById('quote-text');
+            const quoteCounter = document.getElementById('quote-counter');
+            
+            // Efekt prolnutí
+            quoteText.style.opacity = 0;
+
+            setTimeout(() => {
+                quoteText.innerHTML = '"' + quotes[index] + '"';
+                quoteCounter.innerText = (index + 1) + ' / ' + quotes.length;
+                quoteText.style.opacity = 1;
+            }, 300);
+        }
+
+        function nextQuote() {
+            currentQuoteIndex++;
+            if (currentQuoteIndex >= quotes.length) {
+                currentQuoteIndex = 0; // Smyčka na začátek
+            }
+            showQuote(currentQuoteIndex);
+        }
+
+        function prevQuote() {
+            currentQuoteIndex--;
+            if (currentQuoteIndex < 0) {
+                currentQuoteIndex = quotes.length - 1; // Smyčka na konec
+            }
+            showQuote(currentQuoteIndex);
+        }
+
+        // --- COOKIE LIŠTA ---
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptBtn = document.getElementById('accept-cookies');
+
+        // Zkontroluj, zda už bylo odkliknuto
+        if (!localStorage.getItem('cookieConsent')) {
+            cookieBanner.style.display = 'flex';
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'true');
+            cookieBanner.style.display = 'none';
+        });
+
+        // --- OSTATNÍ FUNKCE (Menu, FAQ, Scroll) ---
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        const headers = document.querySelectorAll('.accordion-header');
+
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const body = header.nextElementSibling;
+                const isActive = header.classList.contains('active');
+
+                if (isActive) {
+                    header.classList.remove('active');
+                    body.style.maxHeight = null;
+                } else {
+                    header.classList.add('active');
+                    body.style.maxHeight = body.scrollHeight + "px";
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+                document.getElementById('nav-menu').classList.remove('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
